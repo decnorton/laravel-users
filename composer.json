@@ -1,0 +1,21 @@
+{
+    "name": "dec/users",
+    "description": "Simple role based access control",
+    "authors": [
+        {
+            "name": "Dec Norton",
+            "email": "decnorton@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.1.*",
+        "dec/validation": "dev-master",
+    },
+    "autoload": {
+        "psr-0": {
+            "Dec\\Users": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
