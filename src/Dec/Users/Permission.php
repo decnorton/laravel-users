@@ -26,7 +26,7 @@ class Permission extends \Dec\Validation\Model {
      * @var array
      */
     public static $rules = [
-        'name'          => 'required|unique:permissions|between:4,16',
+        'name'          => 'required|unique:permissions|between:4,32',
         'display_name'  => 'required|unique:permissions'
     ];
 
