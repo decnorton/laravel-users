@@ -10,7 +10,7 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.1.*",
-        "dec/validation": "1.0.*",
+        "dec/validation": "1.0.*"
     },
     "require-dev": {
         "dec/validation": "dev-master"
