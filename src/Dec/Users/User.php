@@ -2,8 +2,14 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends \Dec\Validation\Model implements UserInterface, RemindableInterface {
+class User extends Model implements UserInterface, RemindableInterface {
+
+    /**
+     * Enable self-validation
+     */
+    use Watson\Validating\ValidatingTrait;
 
     /**
      * The database table used by the model.
@@ -53,6 +59,16 @@ class User extends \Dec\Validation\Model implements UserInterface, RemindableInt
     {
         return $this->password;
     }
+
+    /**
+     * Alias for getErrors()
+     *
+     * @return Illuminate\Support\MessageBag
+     */
+    public function errors() {
+        return $this->getErrors();
+    }
+
 
     /**
      * Get the e-mail address where password reminders are sent.

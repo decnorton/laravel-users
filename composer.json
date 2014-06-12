@@ -8,9 +8,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "~4.2",
-        "dec/validation": "dev-master"
+        "php":                  ">=5.4.0",
+        "illuminate/support":   "~4.2",
+        "watson/validating":    "0.7.*"
     },
     "require-dev": {
         "dec/validation": "dev-master"
