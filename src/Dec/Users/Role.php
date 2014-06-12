@@ -1,6 +1,8 @@
 <?php namespace Dec\Users;
 
-class Role extends \Dec\Validation\Model {
+use Illuminate\Database\Eloquent\Model;
+
+class Role extends Model {
 
     /**
      * Disable incrementing IDs
@@ -25,9 +27,11 @@ class Role extends \Dec\Validation\Model {
      * Validation rules
      * @var array
      */
-    public static $rules = [
-        'name'          => 'required|unique:roles|between:4,16',
-        'display_name'  => 'required|unique:roles'
+    protected $rules = [
+        'saving' => [
+            'name'          => 'required|unique:roles|between:4,16',
+            'display_name'  => 'required|unique:roles'
+        ]
     ];
 
     public function users()

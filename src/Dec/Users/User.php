@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model implements UserInterface, RemindableInterface {
 
     /**
-     * Enable self-validation
-     */
-    use Watson\Validating\ValidatingTrait;
-
-    /**
      * The database table used by the model.
      *
      * @var string
@@ -33,11 +28,13 @@ class User extends Model implements UserInterface, RemindableInterface {
      *
      * @var array
      */
-    public static $rules = [
-        'username'              => 'required|unique:users|alpha_dash',
-        'email'                 => 'required|unique:users|email',
-        'password'              => 'required|between:4,20|confirmed',
-        'password_confirmation' => 'between:4,20'
+    protected $rules = [
+        'saving' => [
+            'username'              => 'required|unique:users|alpha_dash',
+            'email'                 => 'required|unique:users|email',
+            'password'              => 'required|between:4,20|confirmed',
+            'password_confirmation' => 'between:4,20'
+        ]
     ];
 
     /**

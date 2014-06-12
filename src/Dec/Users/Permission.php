@@ -1,6 +1,8 @@
 <?php namespace Dec\Users;
 
-class Permission extends \Dec\Validation\Model {
+use Illuminate\Database\Eloquent\Model;
+
+class Permission extends Model {
 
     /**
      * Disable incrementing IDs
@@ -25,9 +27,11 @@ class Permission extends \Dec\Validation\Model {
      * Validation rules
      * @var array
      */
-    public static $rules = [
-        'name'          => 'required|unique:permissions|between:4,32',
-        'display_name'  => 'required|unique:permissions'
+    public $rules = [
+        'saving' => [
+            'name'          => 'required|unique:permissions|between:4,32',
+            'display_name'  => 'required|unique:permissions'
+        ]
     ];
 
 }

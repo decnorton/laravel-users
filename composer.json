@@ -9,8 +9,7 @@
     ],
     "require": {
         "php":                  ">=5.4.0",
-        "illuminate/support":   "~4.2",
-        "watson/validating":    "0.7.*"
+        "illuminate/support":   "~4.2"
     },
     "autoload": {
         "psr-0": {
