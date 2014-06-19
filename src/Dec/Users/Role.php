@@ -29,8 +29,8 @@ class Role extends Model {
      */
     protected $rules = [
         'saving' => [
-            'name'          => 'required|unique:roles|between:4,16',
-            'display_name'  => 'required|unique:roles'
+            'name'          => 'required|unique:roles,name|between:4,16',
+            'display_name'  => 'required|unique:roles,name'
         ]
     ];
 

@@ -29,8 +29,8 @@ class Permission extends Model {
      */
     public $rules = [
         'saving' => [
-            'name'          => 'required|unique:permissions|between:4,32',
-            'display_name'  => 'required|unique:permissions'
+            'name'          => 'required|unique:permissions,name|between:4,32',
+            'display_name'  => 'required|unique:permissions,name'
         ]
     ];
 
