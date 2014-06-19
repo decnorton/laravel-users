@@ -1,5 +1,6 @@
 <?php namespace Dec\Users;
 
+use Hash;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -29,11 +30,18 @@ class User extends Model implements UserInterface, RemindableInterface {
      * @var array
      */
     protected $rules = [
-        'saving' => [
+        'creating' => [
             'username'              => 'required|unique:users|alpha_dash',
             'email'                 => 'required|unique:users|email',
-            'password'              => 'required|between:4,20|confirmed',
-            'password_confirmation' => 'between:4,20'
+            'password'              => 'required|between:6,255|confirmed',
+            'password_confirmation' => 'between:6,255'
+        ],
+
+        'updating' => [
+            'username'              => 'required|unique:users|alpha_dash',
+            'email'                 => 'required|unique:users|email',
+            'password'              => 'between:6,255|confirmed',
+            'password_confirmation' => 'between:6,255'
         ]
     ];
 
