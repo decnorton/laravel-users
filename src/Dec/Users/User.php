@@ -1,5 +1,6 @@
 <?php namespace Dec\Users;
 
+use Event;
 use Hash;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
@@ -29,21 +30,54 @@ class User extends Model implements UserInterface, RemindableInterface {
      *
      * @var array
      */
-    protected $rules = [
-        'creating' => [
-            'username'              => 'required|unique:users|alpha_dash',
-            'email'                 => 'required|unique:users|email',
-            'password'              => 'required|between:6,255|confirmed',
-            'password_confirmation' => 'between:6,255'
+    protected $rulesets = [
+        'saving' => [
+            'username'              => ['required', 'unique:users', 'regex:/^[a-zA-Z0-9\-\_\.]+$/'],
+            'email'                 => ['required', 'unique:users', 'email'],
+            'password'              => ['between:6,255', 'confirmed'],
+            'password_confirmation' => ['between:6,255']
         ],
 
-        'updating' => [
-            'username'              => 'required|unique:users|alpha_dash',
-            'email'                 => 'required|unique:users|email',
-            'password'              => 'between:6,255|confirmed',
-            'password_confirmation' => 'between:6,255'
+        'creating' => [
+            'password'              => 'required|between:6,255|confirmed',
         ]
     ];
+
+    protected $validationMessages = [
+        'username.regex' => "Username may only contain letters, numbers, dashes and full stops."
+    ];
+
+    protected $passwordAttributes = ['password'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        Event::listen('validating.passed', function ($model)
+        {
+            if (is_a($model, __CLASS__))
+            {
+                // Prepare attributes
+                foreach ($model->attributes as $key => $value)
+                {
+                    // Remove any confirmation fields
+                    if (ends_with($key, '_confirmation'))
+                    {
+                        array_forget($model->attributes, $key);
+                        continue;
+                    }
+
+                    // Check if this one of our password attributes and if it's been changed.
+                    if (in_array($key, $model->passwordAttributes) && $value != $model->getOriginal($key))
+                    {
+                        // Hash it
+                        $model->attributes[$key] = Hash::make($value);
+                        continue;
+                    }
+                }
+            }
+        });
+    }
 
     /**
      * Get the unique identifier for the user.
