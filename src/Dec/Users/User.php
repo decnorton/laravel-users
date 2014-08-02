@@ -5,6 +5,7 @@ use Hash;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\MessageBag;
 
 class User extends Model implements UserInterface, RemindableInterface {
 
@@ -32,7 +33,7 @@ class User extends Model implements UserInterface, RemindableInterface {
      */
     protected $rulesets = [
         'saving' => [
-            'username'              => ['required', 'unique:users', 'regex:/^[a-zA-Z0-9\-\_\.]+$/'],
+            'username'              => ['required', 'unique:users', 'regex:/^([a-z0-9]+(?:[-|.]?[a-z0-9]+)+)$/i'],
             'email'                 => ['required', 'unique:users', 'email'],
             'password'              => ['between:6,255', 'confirmed'],
             'password_confirmation' => ['between:6,255']
@@ -98,16 +99,6 @@ class User extends Model implements UserInterface, RemindableInterface {
     {
         return $this->password;
     }
-
-    /**
-     * Alias for getErrors()
-     *
-     * @return Illuminate\Support\MessageBag
-     */
-    public function errors() {
-        return $this->getErrors();
-    }
-
 
     /**
      * Get the e-mail address where password reminders are sent.
