@@ -60,7 +60,7 @@ class Role extends Model {
         if (!is_string($permission))
             return false;
 
-        $this->permissions()->attach($permission);
+        $this->permissions()->sync([$permission], false);
 
         return true;
     }
@@ -84,6 +84,7 @@ class Role extends Model {
      * Detach permission form current role
      *
      * @param $permission
+     * @return bool
      */
     public function detachPermission($permission)
     {
@@ -97,6 +98,8 @@ class Role extends Model {
             return false;
 
         $this->permissions()->detach($permission);
+
+        return true;
     }
 
     /**
@@ -116,8 +119,8 @@ class Role extends Model {
 
     /**
      * Alias for Eloquent ManyToMany::sync(). Overwrites existing.
-     * @param  [type] $permissions [description]
-     * @return [type]              [description]
+     * @param $permissions
+     * @return bool
      */
     public function syncPermissions($permissions)
     {
